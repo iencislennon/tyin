@@ -8,11 +8,14 @@ Base = declarative_base()
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "")
 
-# Railway иногда передаёт postgres:// вместо postgresql://
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set")
+
 engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(bind=engine)
 
 class ChatHistory(Base):
     __tablename__ = "chat_history"
@@ -31,10 +34,6 @@ class RealCase(Base):
     approved      = Column(String(10))
     real_rate     = Column(String(20))
     created_at    = Column(DateTime, default=datetime.now)
-
-DATABASE_URL = os.environ.get("DATABASE_URL")
-engine       = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(bind=engine)
 
 def init_db():
     Base.metadata.create_all(engine)
