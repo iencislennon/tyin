@@ -84,6 +84,12 @@ async def ask(request: Request, query: Query):
             content={"error": "Внутренняя ошибка сервера"}
         )
 
+@app.on_event("startup")
+async def startup():
+    from database.models import init_db
+    init_db()
+    logging.info("✓ БД инициализирована")
+    
 @app.get("/health")
 async def health():
     return {"status": "ok", "version": "1.0.0"}
