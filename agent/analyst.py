@@ -1,6 +1,22 @@
 from agent.tools import calc_annuity_payment, calc_full_payment, calc_overpayment
 from data.bank_documents import all_banks
 
+def _get_all_products():
+    products = []
+    
+    # Сначала пробуем спаршенные данные
+    try:
+        from data.scraped_banks import scraped_banks
+        for p in scraped_banks:
+            products.append({"bank": p, "products": [p]})
+    except ImportError:
+        pass
+    
+    # Всегда добавляем ручные данные
+    from data.bank_documents import all_banks
+    products.extend(all_banks)
+    
+    return products
 
 def _keyword_search(loan: dict, n: int = 3) -> list[str]:
     """Простой keyword поиск по банкам без векторной модели"""

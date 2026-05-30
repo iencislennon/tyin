@@ -18,6 +18,14 @@ import logging
 
 load_dotenv()
 
+from fastapi.responses import StreamingResponse
+import json
+
+import sentry_sdk
+
+
+
+
 # ── Rate limiter ──
 limiter = Limiter(key_func=get_remote_address)
 app = FastAPI()
@@ -98,3 +106,24 @@ async def startup():
 @app.get("/health")
 async def health():
     return {"status": "ok", "version": "1.0.0"}
+
+@app.post("/ask")
+@limiter.limit("15/minute")
+async def ask(request: Request, query: Query):
+    try:
+        def generate():
+            from agent.pipeline import run_pipeline_stream
+            for chunk in run_pipeline_stream(query.text, query.user_id):
+                yield f"data: {json.dumps({'chunk': chunk})}\n\n"
+            yield "data: [DONE]\n\n"
+
+        return StreamingResponse(generate(), media_type="text/event-stream")
+    except Exception as e:
+        logging.error(f"API error: {e}")
+        return JSONResponse(status_code=500, content={"error": "Ошибка сервера"})
+
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN", ""),
+    traces_sample_rate=0.1,
+)
+
