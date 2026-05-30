@@ -6,6 +6,14 @@ import os
 
 Base = declarative_base()
 
+DATABASE_URL = os.environ.get("DATABASE_URL", "")
+
+# Railway иногда передаёт postgres:// вместо postgresql://
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(DATABASE_URL)
+
 class ChatHistory(Base):
     __tablename__ = "chat_history"
     id         = Column(Integer, primary_key=True)
