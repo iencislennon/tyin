@@ -1,11 +1,64 @@
 from agent.tools import calc_annuity_payment, calc_full_payment, calc_overpayment
-from db.chromadb import get_collection
+from data.bank_documents import all_banks
+
+
+def _keyword_search(loan: dict, n: int = 3) -> list[str]:
+    """Простой keyword поиск по банкам без векторной модели"""
+    purpose = (loan.get("purpose") or "").lower()
+    collateral = loan.get("collateral")
+    max_sum = loan.get("sum") or 0
+    max_months = loan.get("months") or 0
+
+    scored = []
+    for bank in all_banks:
+        for product in bank["products"]:
+            score = 0
+            name = product["name"].lower()
+            notes = (product.get("notes") or "").lower()
+
+            # Совпадение по цели
+            if purpose:
+                if purpose in name or purpose in notes:
+                    score += 3
+                if "ипотек" in purpose and "ипотек" in name:
+                    score += 5
+                if "рефинансир" in purpose and "рефинансир" in name:
+                    score += 5
+                if "авто" in purpose and "авто" in name:
+                    score += 5
+
+            # Совпадение по залогу
+            if collateral is not None:
+                if product.get("collateral") == collateral:
+                    score += 2
+
+            # Совпадение по сумме
+            if max_sum and product.get("max_sum"):
+                if product["max_sum"] >= max_sum:
+                    score += 1
+
+            # Совпадение по сроку
+            if max_months and product.get("max_months"):
+                if product["max_months"] >= max_months:
+                    score += 1
+
+            doc_text = f"""Банк: {bank['bank']}
+Продукт: {product['name']}
+Ставка: {product['annual_rate_min']}% - {product['annual_rate_max']}%
+Сумма: до {product['max_sum']} тенге
+Срок: до {product['max_months']} месяцев
+Залог: {'нет' if not product['collateral'] else 'требуется'}
+{product.get('notes', '')}""".strip()
+
+            scored.append((score, doc_text))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [doc for _, doc in scored[:n]]
+
 
 def analyze(loan: dict) -> dict:
-    collection = get_collection()
     result = {}
 
-    # считаем метрики только если есть все нужные данные
     if loan.get("sum") and loan.get("annual_rate") and loan.get("months"):
         monthly = calc_annuity_payment.invoke({
             "credit_sum": loan["sum"],
@@ -30,33 +83,5 @@ def analyze(loan: dict) -> dict:
         result["total_payment"] = None
         result["overpayment"] = None
 
-    # поиск в сhroma строим запрос из того что есть
-    query_parts = []
-    if loan.get("purpose") == "ипотека":
-        query_text = "ипотека покупка жилья первоначальный взнос"
-    elif loan.get("purpose") == "рефинансирование":
-        query_text = "рефинансирование кредитов других банков"
-    if loan.get("purpose"):
-        query_parts.append(loan["purpose"])
-    if loan.get("sum"):
-        query_parts.append(f"сумма {loan['sum']} тенге")
-    if loan.get("months"):
-        query_parts.append(f"срок {loan['months']} месяцев")
-    if loan.get("annual_rate"):
-        query_parts.append(f"ставка {loan['annual_rate']}%")
-
-    query_text = " ".join(query_parts) if query_parts else "кредит наличными"
-
-    # фильтр по метаданным из того что есть
-    where = {}
-    if loan.get("collateral") is not None:
-        where["collateral"] = loan["collateral"]
-
-    results = collection.query(
-        query_texts=[query_text],
-        n_results=3,
-        where=where if where else None
-    )
-
-    result["similar_offers"] = results["documents"][0]
+    result["similar_offers"] = _keyword_search(loan)
     return result
