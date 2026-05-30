@@ -13,3 +13,4 @@ for text in test_cases:
     print(f"Вопрос: {text}")
     print(f"Ответ: {run_pipeline(text)}")
     print("-" * 60)
+    print("111")
