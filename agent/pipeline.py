@@ -7,8 +7,7 @@ import logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s"
-)
-
+) # 1 more time?
 def run_pipeline(user_text: str, user_id: str = "default") -> str:
 
     # История из PostgreSQL
