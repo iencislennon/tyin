@@ -1,0 +1,48 @@
+2026-05-25 14:55:08,587 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 14:55:08,587 INFO Added job "update_banks" to job store "default"
+2026-05-25 14:55:08,587 INFO Scheduler started
+2026-05-25 15:05:15,298 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:05:15,298 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:05:15,298 INFO Scheduler started
+2026-05-25 15:05:17,941 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:05:17,941 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:05:17,941 INFO Scheduler started
+2026-05-25 15:05:31,915 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:05:36,928 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:05:36,934 INFO user=u_q12jl8 q=cool w u ok=Кажется, ваш вопрос не относится к финансовой тема
+2026-05-25 15:06:14,754 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:06:35,882 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:06:35,888 INFO user=u_q12jl8 q=а если банк закрылся ok=Если банк, в котором вы взяли кредит, закрывается,
+2026-05-25 15:08:18,724 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:08:18,725 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:08:18,725 INFO Scheduler started
+2026-05-25 15:08:22,853 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:08:37,577 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:08:37,580 INFO user=u_ykkggg q=«Здравствуйте, я хочу взять кредит на покупку авто ok=Здравствуйте! Вот расчеты для вашего запроса на ав
+2026-05-25 15:08:57,017 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:09:10,629 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:09:10,639 INFO user=u_ykkggg q=«А какие банки в Казахстане сейчас дают самые выго ok=На текущий момент одно из наиболее выгодных предло
+2026-05-25 15:09:12,635 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:09:18,389 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:09:18,393 INFO user=u_ykkggg q=«Кстати, какая сейчас погода в Астане?» ok=Извините, но я специализируюсь на финансовых вопро
+2026-05-25 15:09:24,191 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:09:43,204 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:09:43,211 INFO user=u_ykkggg q=«Вернемся к кредиту. Если я возьму не 8,5 млн, а 1 ok=Если вы возьмёте кредит на сумму 10 млн тенге при 
+2026-05-25 15:18:24,344 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:18:24,344 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:18:24,344 INFO Scheduler started
+2026-05-25 15:18:33,281 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:18:33,281 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:18:33,281 INFO Scheduler started
+2026-05-25 15:18:56,950 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:18:56,950 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:18:56,950 INFO Scheduler started
+2026-05-25 15:34:49,800 INFO Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-25 15:34:49,801 INFO Added job "update_banks" to job store "default"
+2026-05-25 15:34:49,801 INFO Scheduler started
+2026-05-25 15:35:03,097 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:35:22,777 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:35:22,798 INFO user=u_evnqd1 q=Что такое ГЭСВ и зачем смотреть на него?
+2026-05-25 15:36:54,588 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:37:27,066 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-25 15:37:27,077 INFO user=u_n8wrro q=Кредит онлайн без залога, 3 млн на 2 года
