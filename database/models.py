@@ -3,9 +3,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 import os
-from dotenv import load_dotenv
-
-load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
 Base = declarative_base()
 
@@ -19,15 +16,15 @@ class ChatHistory(Base):
 
 class RealCase(Base):
     __tablename__ = "real_cases"
-    id           = Column(Integer, primary_key=True)
-    user_id      = Column(String(100))
-    bank         = Column(String(100))
-    requested_sum= Column(Integer)
-    approved     = Column(String(10))
-    real_rate    = Column(String(20))
-    created_at   = Column(DateTime, default=datetime.now)
+    id            = Column(Integer, primary_key=True)
+    user_id       = Column(String(100))
+    bank          = Column(String(100))
+    requested_sum = Column(Integer)
+    approved      = Column(String(10))
+    real_rate     = Column(String(20))
+    created_at    = Column(DateTime, default=datetime.now)
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 engine       = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
