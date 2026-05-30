@@ -35,7 +35,17 @@ app.add_middleware(
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
-
+@app.on_event("startup")
+async def startup():
+    from database.models import init_db
+    from db.chromadb import get_collection
+    
+    init_db()
+    logging.info("✓ БД инициализирована")
+    
+    # Предзагружаем Chroma и модель при старте
+    get_collection()
+    logging.info("✓ Chroma готова")
 # ── Автообновление базы ──
 def update_banks():
     try:
@@ -89,7 +99,7 @@ async def startup():
     from database.models import init_db
     init_db()
     logging.info("✓ БД инициализирована")
-    
+
 @app.get("/health")
 async def health():
     return {"status": "ok", "version": "1.0.0"}
