@@ -2,13 +2,12 @@ name: Update Bank Data
 
 on:
   schedule:
-    - cron: '0 6 * * 1'  # каждый понедельник в 6:00 UTC
-  workflow_dispatch:  # можно запустить вручную
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,15 +24,15 @@ jobs:
           playwright install chromium
 
       - name: Run scraper
-        run: python scraper/runner.py > scraper_output.txt 2>&1
+        run: python scraper/runner.py
 
-      - name: Update bank_documents.py
+      - name: Update scraped data
         run: python scraper/update_bank_docs.py
 
       - name: Commit and push if changed
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'actions@github.com'
-          git add data/bank_documents.py
+          git add data/scraped_banks.py
           git diff --staged --quiet || git commit -m "auto: update bank data $(date +%Y-%m-%d)"
           git push
