@@ -1,6 +1,6 @@
 from agent.extractor import extract_loan_data
 from agent.analyst import analyze
-from agent.advisor import advise
+from agent.advisor import advise, advise_stream
 from database.models import save_message, get_history
 import logging
 
