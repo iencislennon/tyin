@@ -104,6 +104,15 @@ async def ask(request: Request, query: Query):
             status_code=500,
             content={"error": "Внутренняя ошибка сервера"}
         )
+    
+@app.get("/check")
+async def check():
+    try:
+        from agent.advisor import advise_stream
+        import inspect
+        return {"has_stream": True, "file": inspect.getfile(advise_stream)}
+    except Exception as e:
+        return {"has_stream": False, "error": str(e)}
 
 @app.get("/health")
 async def health():
