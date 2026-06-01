@@ -15,7 +15,7 @@ from slowapi.errors import RateLimitExceeded
 import logging
 import json
 import sentry_sdk
-
+from agent.advisor import advise, advise_stream
 load_dotenv()
 
 # ── Sentry ──
