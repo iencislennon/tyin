@@ -6,9 +6,7 @@
 
 ## Живой URL
 
-```
-https://web-production-b601d.up.railway.app
-```
+Публичный деплой временно недоступен (прежний Railway-адрес возвращает 404). Staging: не развёрнут.
 
 ---
 
@@ -109,7 +107,7 @@ data: [DONE]
 
 **Пример curl:**
 ```bash
-curl -X POST https://web-production-b601d.up.railway.app/ask \
+curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
   -d '{"text": "Kaspi 1.5M на 24 мес под 26%", "user_id": "test"}'
 ```
